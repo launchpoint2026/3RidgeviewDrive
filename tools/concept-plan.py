@@ -26,7 +26,7 @@ PC=(22,68); PA=-81.4   # pool centre and angle: long side runs parallel to Sir F
 patio=rect(44,42,40,38)
 firepit=(58,97,9)
 guest=rect(-2,100,38,16)
-blocked=[rect(-6,96,46,24),house,garage,terrace,motor,rect(6,36,40,66),patio,rect(34,50,12,30),rect(47,86,22,22),rect(22,21,10,18),rect(-30,DR[0]-2,280,DR[1]-DR[0]+4),rect(112,21,12,15)]
+blocked=[rect(-6,96,46,24),house,garage,terrace,motor,rect(6,36,40,66),patio,rect(34,50,12,30),rect(22,21,10,18),rect(-30,DR[0]-2,280,DR[1]-DR[0]+4),rect(112,21,12,15)]
 
 o('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-75 -60 345 245" font-family="Georgia, serif">')
 o('<defs><pattern id="pave" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#e9e7e2"/><circle cx=".8" cy=".9" r=".28" fill="#a9a59c"/><circle cx="2.2" cy="2.1" r=".22" fill="#bdb9b0"/></pattern>')
@@ -72,15 +72,6 @@ o('<text x="60" y="66" font-size="2.6" text-anchor="middle" fill="#6b604e">PERGO
 o('<rect x="75" y="44" width="6" height="18" fill="#e3ddd1" stroke="#6b604e" stroke-width=".35"/><rect x="76" y="48" width="4" height="6" fill="#bdb6a8" stroke="#6b604e" stroke-width=".2"/>')
 o('<text x="78" y="68" font-size="2.3" text-anchor="middle" fill="#6b604e">OUTDOOR</text><text x="78" y="70.8" font-size="2.3" text-anchor="middle" fill="#6b604e">KITCHEN</text>')
 for x in (46,50,54): o(f'<rect x="{x}" y="{42-0}" width="3" height="1.4" fill="#9cbf87" opacity=".0"/>')
-# fire pit terrace reached by stepping stones
-fx,fy,fr=firepit
-for i,yy in enumerate((82,85.2)): o(f'<rect x="{fx-2.5}" y="{yy}" width="5" height="2.2" rx=".8" fill="#e6e0d4" stroke="#b9ae9a" stroke-width=".25"/>')
-o(f'<circle cx="{fx}" cy="{fy}" r="{fr}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".3"/>')
-o(f'<circle cx="{fx}" cy="{fy}" r="2.4" fill="#e9a25a" stroke="#7a5a3a" stroke-width=".35"/><circle cx="{fx}" cy="{fy}" r="1.2" fill="#f6d27a"/>')
-for k in range(5):
-    a=k*2*math.pi/5-math.pi/2
-    o(f'<circle cx="{fx+5.6*math.cos(a):.1f}" cy="{fy+5.6*math.sin(a):.1f}" r="1.3" fill="#fff" stroke="#8a7c66" stroke-width=".25"/>')
-o(f'<text x="{fx}" y="{fy+fr+3.6}" font-size="2.8" text-anchor="middle" fill="#6b604e" letter-spacing=".4">FIRE PIT</text>')
 # guest / pool house (ADU) in the setback beside the pool
 o(f'<polygon points="{pts([(x+1,y+1) for x,y in guest])}" fill="#000" opacity=".12"/>')
 o(f'<polygon points="{pts(guest)}" fill="#fbfaf7" stroke="#222" stroke-width=".6"/>')
