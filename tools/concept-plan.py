@@ -22,10 +22,11 @@ house=[(88,36),(122,36),(122,33),(136,33),(136,36),(150,36),(150,68),(88,68)]
 garage=rect(150,36,24,24)
 terrace=rect(84,68,70,11)
 motor=[(142,21),(176,21),(176,36),(174,36),(174,36),(150,36),(150,30),(142,30)]
-pooldeck=rect(10,42,58,32)
-pool=rect(18,49,40,17)
-spa=(62,57.5,4.5)
-blocked=[house,garage,terrace,motor,pooldeck,rect(-30,DR[0]-2,280,DR[1]-DR[0]+4),rect(112,21,12,15)]
+PC=(22,68); PA=-81.4   # pool centre and angle: long side runs parallel to Sir Francis Drake
+patio=rect(44,42,40,38)
+firepit=(58,97,9)
+guest=rect(-2,100,38,16)
+blocked=[rect(-6,96,46,24),house,garage,terrace,motor,rect(6,36,40,66),patio,rect(34,50,12,30),rect(47,86,22,22),rect(22,21,10,18),rect(-30,DR[0]-2,280,DR[1]-DR[0]+4),rect(112,21,12,15)]
 
 o('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-75 -60 345 245" font-family="Georgia, serif">')
 o('<defs><pattern id="pave" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#e9e7e2"/><circle cx=".8" cy=".9" r=".28" fill="#a9a59c"/><circle cx="2.2" cy="2.1" r=".22" fill="#bdb9b0"/></pattern>')
@@ -59,15 +60,48 @@ o(f'<polygon points="{pts(motor)}" fill="url(#pave)" stroke="#8f8b83" stroke-wid
 o(f'<polygon points="{pts(rect(112,21,12,12))}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".25"/>')
 # terrace & pool deck
 o(f'<polygon points="{pts(terrace)}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".3"/>')
-o(f'<polygon points="{pts(pooldeck)}" fill="url(#deck)" stroke="#b9a07a" stroke-width=".3"/>')
-o(f'<path d="M68 60 Q 76 64 84 70" fill="none" stroke="#c9bda8" stroke-width="3" stroke-linecap="round"/>')
-o(f'<rect x="{pool[0][0]-1.2}" y="{pool[0][1]-1.2}" width="42.4" height="19.4" rx="1" fill="#f7f4ee" stroke="#9a9a9a" stroke-width=".3"/>')
-o(f'<rect x="{pool[0][0]}" y="{pool[0][1]}" width="40" height="17" rx=".6" fill="url(#water)" stroke="#4d8fa8" stroke-width=".35"/>')
-for i in range(3): o(f'<path d="M{24+i*11} {54+i*2} q2 -1 4 0 t4 0" stroke="#fff" stroke-width=".35" fill="none" opacity=".8"/>')
-o(f'<circle cx="{spa[0]}" cy="{spa[1]}" r="{spa[2]+1}" fill="#f7f4ee" stroke="#9a9a9a" stroke-width=".3"/><circle cx="{spa[0]}" cy="{spa[1]}" r="{spa[2]}" fill="url(#water)" stroke="#4d8fa8" stroke-width=".35"/>')
-o('<text x="38" y="59.2" font-size="3.4" text-anchor="middle" fill="#1f5870" letter-spacing=".5">POOL</text>')
-# lounge chairs
-for i in range(4): o(f'<rect x="{20+i*8}" y="68" width="3" height="5" rx=".6" fill="#fff" stroke="#999" stroke-width=".25"/>')
+# walk from pool deck to patio, then patio with pergola dining and outdoor kitchen
+o(f'<polygon points="{pts(rect(34,50,12,28))}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".3"/>')
+o(f'<polygon points="{pts(patio)}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".3"/>')
+o('<text x="64" y="77" font-size="3.2" text-anchor="middle" fill="#6b604e" letter-spacing=".5">PATIO</text>')
+o('<g stroke="#7a6a52" fill="none"><rect x="48" y="45" width="24" height="17" stroke-width=".5"/>' + "".join(f'<line x1="{48+i*2}" y1="45" x2="{48+i*2}" y2="62" stroke-width=".18"/>' for i in range(1,12)) + '</g>')
+o('<rect x="54" y="51.5" width="12" height="4" rx=".4" fill="#fff" stroke="#6b604e" stroke-width=".3"/>')
+for cx in (56,60,64):
+    for cy in (49.8,57.3): o(f'<rect x="{cx-1}" y="{cy-.8}" width="2" height="1.6" rx=".3" fill="#fff" stroke="#8a7c66" stroke-width=".2"/>')
+o('<text x="60" y="66" font-size="2.6" text-anchor="middle" fill="#6b604e">PERGOLA &amp; DINING</text>')
+o('<rect x="75" y="44" width="6" height="18" fill="#e3ddd1" stroke="#6b604e" stroke-width=".35"/><rect x="76" y="48" width="4" height="6" fill="#bdb6a8" stroke="#6b604e" stroke-width=".2"/>')
+o('<text x="78" y="68" font-size="2.3" text-anchor="middle" fill="#6b604e">OUTDOOR</text><text x="78" y="70.8" font-size="2.3" text-anchor="middle" fill="#6b604e">KITCHEN</text>')
+for x in (46,50,54): o(f'<rect x="{x}" y="{42-0}" width="3" height="1.4" fill="#9cbf87" opacity=".0"/>')
+# fire pit terrace reached by stepping stones
+fx,fy,fr=firepit
+for i,yy in enumerate((82,85.2)): o(f'<rect x="{fx-2.5}" y="{yy}" width="5" height="2.2" rx=".8" fill="#e6e0d4" stroke="#b9ae9a" stroke-width=".25"/>')
+o(f'<circle cx="{fx}" cy="{fy}" r="{fr}" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".3"/>')
+o(f'<circle cx="{fx}" cy="{fy}" r="2.4" fill="#e9a25a" stroke="#7a5a3a" stroke-width=".35"/><circle cx="{fx}" cy="{fy}" r="1.2" fill="#f6d27a"/>')
+for k in range(5):
+    a=k*2*math.pi/5-math.pi/2
+    o(f'<circle cx="{fx+5.6*math.cos(a):.1f}" cy="{fy+5.6*math.sin(a):.1f}" r="1.3" fill="#fff" stroke="#8a7c66" stroke-width=".25"/>')
+o(f'<text x="{fx}" y="{fy+fr+3.6}" font-size="2.8" text-anchor="middle" fill="#6b604e" letter-spacing=".4">FIRE PIT</text>')
+# guest / pool house (ADU) in the setback beside the pool
+o(f'<polygon points="{pts([(x+1,y+1) for x,y in guest])}" fill="#000" opacity=".12"/>')
+o(f'<polygon points="{pts(guest)}" fill="#fbfaf7" stroke="#222" stroke-width=".6"/>')
+o('<path d="M-2 100 L6 108 L28 108 L36 100 M-2 116 L6 108 M36 116 L28 108" stroke="#555" stroke-width=".3" fill="none"/>')
+o('<rect x="11" y="97.4" width="12" height="2.6" fill="url(#stone)" stroke="#b9ae9a" stroke-width=".25"/>')
+o('<text x="17" y="105" font-size="2.8" text-anchor="middle" fill="#222" letter-spacing=".3" stroke="#fbfaf7" stroke-width="1.2" paint-order="stroke">GUEST /</text>')
+o('<text x="17" y="108.6" font-size="2.8" text-anchor="middle" fill="#222" letter-spacing=".3" stroke="#fbfaf7" stroke-width="1.2" paint-order="stroke">POOL HOUSE</text>')
+o('<text x="17" y="112.2" font-size="2.3" text-anchor="middle" fill="#555" stroke="#fbfaf7" stroke-width="1.2" paint-order="stroke">(ADU)</text>')
+# stepping stones from the driveway to the pool
+for yy in (23,27,31): o(f'<rect x="25" y="{yy}" width="5" height="2.2" rx=".8" fill="#e6e0d4" stroke="#b9ae9a" stroke-width=".25"/>')
+# pool, spa and deck, turned to run parallel with Sir Francis Drake
+o(f'<g transform="translate({PC[0]} {PC[1]}) rotate({PA})">')
+o('<rect x="-29" y="-12" width="58" height="29" fill="url(#deck)" stroke="#b9a07a" stroke-width=".3"/>')
+o('<rect x="-21.2" y="-9.7" width="42.4" height="19.4" rx="1" fill="#f7f4ee" stroke="#9a9a9a" stroke-width=".3"/>')
+o('<rect x="-20" y="-8.5" width="40" height="17" rx=".6" fill="url(#water)" stroke="#4d8fa8" stroke-width=".35"/>')
+for i in range(3): o(f'<path d="M{-15+i*11} {-4+i*3} q2 -1 4 0 t4 0" stroke="#fff" stroke-width=".35" fill="none" opacity=".8"/>')
+o('<circle cx="25" cy="0" r="5.2" fill="#f7f4ee" stroke="#9a9a9a" stroke-width=".3"/><circle cx="25" cy="0" r="4.2" fill="url(#water)" stroke="#4d8fa8" stroke-width=".35"/>')
+o('<text x="0" y="1.2" font-size="3.4" text-anchor="middle" fill="#1f5870" letter-spacing=".5">POOL</text>')
+o('<text x="25" y="8.6" font-size="2.4" text-anchor="middle" fill="#1f5870">SPA</text>')
+for i in range(4): o(f'<rect x="{-16+i*8}" y="10.5" width="3" height="5" rx=".6" fill="#fff" stroke="#999" stroke-width=".25"/>')
+o('</g>')
 # house: shadow, footprint, hip roof lines
 o(f'<polygon points="{pts([(x+1.2,y+1.2) for x,y in house])}" fill="#000" opacity=".12"/>')
 o(f'<polygon points="{pts(garage)}" fill="#fbfaf7" stroke="#222" stroke-width=".6"/>')
@@ -103,6 +137,7 @@ for _ in range(900):
     o(f'<path d="M{x:.1f} {y:.1f} l-.6 -1.1 M{x:.1f} {y:.1f} l0 -1.4 M{x:.1f} {y:.1f} l.6 -1.1" stroke="#9cbc86" stroke-width=".22" fill="none"/>')
 # planting beds along the south line and in front of the house
 for x in range(-8,186,7):
+    if x<36: continue
     y=ys(x)-4.5+random.uniform(-1,1)
     o(shrub(x,y,random.uniform(1.4,2.1)))
 for y in range(30,112,7):
@@ -110,9 +145,9 @@ for y in range(30,112,7):
 for x in (91,96,101,106,131,137,143): o(shrub(x,33.5 if x<122 else 33.2,1.3))
 for x in (88,94,100,106,112,138,144,150): o(shrub(x,81.5,1.4))
 # pool hedge
-for y in range(40,78,5): o(shrub(8,y,1.6))
+for y in range(34,97,5): o(shrub(xw(y)+5,y,1.6))
 # trees: along the south and east edges, a few in the lawn
-for x,y,r in [(-6,110,7),(30,112,8),(70,108,7.5),(110,106,8),(150,104,7),(178,98,7),(196,60,7),(198,34,6.5),(4,30,6.5),(76,30,6),(186,78,6.5),(170,110,5)]:
+for x,y,r in [(47,114,5.2),(84,110,7.5),(110,106,8),(150,104,7),(178,98,7),(196,60,7),(198,34,6.5),(4,29,5.5),(76,30,6),(186,78,6.5),(170,110,5)]:
     o(tree(x,y,r))
 o(f'<text x="100" y="{(DR[0]+DR[1])/2+1.4}" font-size="3.6" fill="#555" text-anchor="middle" letter-spacing=".4">SHARED DRIVEWAY</text>')
 # lot line on top
